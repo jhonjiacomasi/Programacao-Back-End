@@ -3,6 +3,8 @@ const connectDB = require('./config/db');
 const Product = require('./models/Product');
 
 async function mainOperacoesProdutos() {
+    let idDoProdutoInserido = null; 
+
     try {
         await connectDB();
         console.log("Conexão com o banco de dados estabelecida para demonstração.\n");
@@ -28,6 +30,8 @@ async function mainOperacoesProdutos() {
         console.log(`  - Estoque: ${produtoInserido.estoque}`);
         console.log(`  - Categoria: ${produtoInserido.categoria}`);
 
+        //o id capturado será usado para testar a edição e exclusão
+        idDoProdutoInserido = produtoInserido._id;
     } else {
         console.log("Falha ao inserir o novo produto. O método Product.insert não retornou um produto.");
     }
@@ -44,7 +48,7 @@ async function mainOperacoesProdutos() {
         //funcao para editar um produto, pelo id, no banco
         console.log("--- Editando um produto existente pelo ID ---");
 
-        const idDoProdutoParaEditar = "6840b9f3267592390bddc1d4";  //esse id é um id que eu peguei da propria lista que retorna todos os ids, apenas para exemplo de teste
+        const idDoProdutoParaEditar = idDoProdutoInserido; //
 
         if (idDoProdutoParaEditar && idDoProdutoParaEditar !== "" && mongoose.Types.ObjectId.isValid(idDoProdutoParaEditar)) {
             const dadosParaAtualizar = {
@@ -72,6 +76,35 @@ async function mainOperacoesProdutos() {
             console.log(`ERRO: O ID '${idDoProdutoParaEditar}' fornecido para edição não é um ObjectId válido.`);
         } else {
             console.log("AVISO: ID para edição não fornecido. Edição pulada.");
+        }
+        console.log("--------------------------------------------\n");
+
+        //funcao para excluir um produto, por id, no banco
+        console.log("--- Excluindo um produto existente pelo ID ---");
+        
+        const idDoProdutoParaExcluir = idDoProdutoInserido;
+
+        if(idDoProdutoParaExcluir && idDoProdutoParaExcluir !== "" && mongoose.Types.ObjectId.isValid(idDoProdutoParaExcluir)) {
+            console.log(`Tentando excluir produto com ID: ${idDoProdutoParaExcluir}`);
+
+            const produtoExcluido = await Product.deleteProductById(idDoProdutoParaExcluir);
+
+            if(produtoExcluido) {
+                console.log("Produto excluido com sucesso.");
+                console.log(`  - Nome: ${produtoExcluido.nome}`);
+                console.log(`  - ID: ${produtoExcluido._id}`);
+                console.log(`  - Novo Preço: R$${produtoExcluido.preco}`);
+                console.log(`  - Novo Estoque: ${produtoExcluido.estoque}`);
+                console.log(`  - Nova Descrição: ${produtoExcluido.descricao}`);
+            } else {
+                console.log(`Produto com ID ${idDoProdutoParaExcluir} não encontrado para exclusão.`);
+            }
+        } else if (idDoProdutoParaExcluir === "SEU_ID_AQUI") {
+            console.log("AVISO: Exclusão pulada. Por favor, defina a variável 'idDoProdutoParaExcluir' com um ID válido no código (diferente de 'SEU_ID_AQUI').");
+        } else if (idDoProdutoParaExcluir && !mongoose.Types.ObjectId.isValid(idDoProdutoParaExcluir)) {
+            console.log(`ERRO: O ID '${idDoProdutoParaExcluir}' fornecido para exclusão não é um ObjectId válido.`);
+        } else {
+            console.log("AVISO: ID para exclusão não fornecido. Exclusão pulada.");
         }
         console.log("--------------------------------------------\n");
 
