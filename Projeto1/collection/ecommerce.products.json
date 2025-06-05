@@ -1,0 +1,224 @@
+[{
+  "_id": {
+    "$oid": "6840b9f3267592390bddc1d3"
+  },
+  "id": "004",
+  "nome": "Câmera DSLR 4K",
+  "descricao": "Sensor de alta resolução, gravação 4K, lente intercambiável.",
+  "preco": 3499,
+  "categoria": "Fotografia",
+  "estoque": 50
+},
+{
+  "_id": {
+    "$oid": "6840b9f3267592390bddc1d4"
+  },
+  "id": "005",
+  "nome": "Smartwatch Fit",
+  "descricao": "Descrição alterada via script em 04/06/2025",
+  "preco": 184.39,
+  "categoria": "Wearables",
+  "estoque": 13,
+  "updatedAt": {
+    "$date": "2025-06-04T23:53:39.122Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6840b9f3267592390bddc1d5"
+  },
+  "id": "006",
+  "nome": "Console Gamer X",
+  "descricao": "8K HDR, SSD ultrarrápido, milhares de jogos disponíveis.",
+  "preco": 4499,
+  "categoria": "Games",
+  "estoque": 75
+},
+{
+  "_id": {
+    "$oid": "6840b9f3267592390bddc1d6"
+  },
+  "id": "007",
+  "nome": "TV Smart 55\" 4K",
+  "descricao": "HDR, conexão Wi-Fi, assistente de voz integrado.",
+  "preco": 3799,
+  "categoria": "Eletrônicos",
+  "estoque": 60
+},
+{
+  "_id": {
+    "$oid": "6840b9f3267592390bddc1d7"
+  },
+  "id": "008",
+  "nome": "Teclado Mecânico RGB",
+  "descricao": "Switches mecânicos, iluminação RGB personalizável.",
+  "preco": 349,
+  "categoria": "Informática",
+  "estoque": 90
+},
+{
+  "_id": {
+    "$oid": "6840b9f3267592390bddc1d8"
+  },
+  "id": "009",
+  "nome": "Monitor UltraWide 32\"",
+  "descricao": "Resolução QHD, taxa de atualização 165Hz.",
+  "preco": 2299,
+  "categoria": "Informática",
+  "estoque": 40
+},
+{
+  "_id": {
+    "$oid": "6840b9f3267592390bddc1d9"
+  },
+  "id": "010",
+  "nome": "Caixa de Som Bluetooth",
+  "descricao": "Graves potentes, resistente à água, autonomia de 12 horas.",
+  "preco": 499,
+  "categoria": "Áudio",
+  "estoque": 150
+},
+{
+  "_id": {
+    "$oid": "6840ba5c267592390bddc1db"
+  },
+  "id": "011",
+  "nome": "Mouse Gamer X-Pro",
+  "descricao": "Sensor óptico de alta precisão, iluminação RGB.",
+  "preco": 199.9,
+  "categoria": "Informática",
+  "estoque": 120
+},
+{
+  "_id": {
+    "$oid": "6840ba5c267592390bddc1dc"
+  },
+  "id": "012",
+  "nome": "Cadeira Ergonômica Master",
+  "descricao": "Encosto ajustável, suporte lombar, material premium.",
+  "preco": 1299,
+  "categoria": "Móveis",
+  "estoque": 50
+},
+{
+  "_id": {
+    "$oid": "6840ba5c267592390bddc1dd"
+  },
+  "id": "013",
+  "nome": "Geladeira Frost Free",
+  "descricao": "Capacidade de 400L, sistema de resfriamento rápido.",
+  "preco": 3499,
+  "categoria": "Eletrodomésticos",
+  "estoque": 30
+},
+{
+  "_id": {
+    "$oid": "6840ba5c267592390bddc1de"
+  },
+  "id": "014",
+  "nome": "Máquina de Lavar 12kg",
+  "descricao": "Ciclo inteligente, baixo consumo de energia.",
+  "preco": 2699,
+  "categoria": "Eletrodomésticos",
+  "estoque": 40
+},
+{
+  "_id": {
+    "$oid": "6840ba5c267592390bddc1df"
+  },
+  "id": "015",
+  "nome": "Tablet Pro 10\"",
+  "descricao": "Tela de alta resolução, bateria de longa duração.",
+  "preco": 1799,
+  "categoria": "Eletrônicos",
+  "estoque": 90
+},
+{
+  "_id": {
+    "$oid": "6840ba5c267592390bddc1e0"
+  },
+  "id": "016",
+  "nome": "Headset Gamer Surround",
+  "descricao": "Áudio imersivo, microfone de alta qualidade.",
+  "preco": 499.9,
+  "categoria": "Áudio",
+  "estoque": 120
+},
+{
+  "_id": {
+    "$oid": "6840ba5c267592390bddc1e1"
+  },
+  "id": "017",
+  "nome": "Drone 4K Pro",
+  "descricao": "Estabilização avançada, alcance de 5km.",
+  "preco": 4999,
+  "categoria": "Fotografia",
+  "estoque": 25
+},
+{
+  "_id": {
+    "$oid": "6840ba5c267592390bddc1e2"
+  },
+  "id": "018",
+  "nome": "Bicicleta Elétrica Smart",
+  "descricao": "Autonomia de 40km, motor de 250W.",
+  "preco": 5999,
+  "categoria": "Esportes",
+  "estoque": 15
+},
+{
+  "_id": {
+    "$oid": "6840ba5c267592390bddc1e3"
+  },
+  "id": "019",
+  "nome": "Kit de Ferramentas Premium",
+  "descricao": "100 peças, material reforçado.",
+  "preco": 799,
+  "categoria": "Utilidades",
+  "estoque": 80
+},
+{
+  "_id": {
+    "$oid": "6840ba5c267592390bddc1e4"
+  },
+  "id": "020",
+  "nome": "Liquidificador PowerMix",
+  "descricao": "Velocidade ajustável, motor potente.",
+  "preco": 299,
+  "categoria": "Eletrodomésticos",
+  "estoque": 150
+},
+{
+  "_id": {
+    "$oid": "6840d8f18283183b90d9ac58"
+  },
+  "nome": "Smartphone Pro Geração X",
+  "descricao": "Câmera de 200MP, Tela Super AMOLED 120Hz, Bateria de 2 dias.",
+  "preco": 3999.9,
+  "estoque": 150,
+  "categoria": "Celulares",
+  "createdAt": {
+    "$date": "2025-06-04T23:38:25.504Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-04T23:38:25.504Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6840dc827b930f4f49a6bed9"
+  },
+  "nome": "Smartphone Pro Geração X",
+  "descricao": "Câmera de 200MP, Tela Super AMOLED 120Hz, Bateria de 2 dias.",
+  "preco": 3999.9,
+  "estoque": 150,
+  "categoria": "Celulares",
+  "createdAt": {
+    "$date": "2025-06-04T23:53:38.915Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-04T23:53:38.915Z"
+  },
+  "__v": 0
+}]
