@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Loja Primo - Login</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+    <div class="container">
+        <img src="/assets/loja-primo-logo.svg" alt="Logo Loja Primo" class="logo-img" />
+        <h2>Login</h2>
+        
+        <form id="loginForm">
+            <input type="text" id="username" name="username" placeholder="Usuário" required />
+            <input type="password" id="password" name="password" placeholder="Senha" required />
+            <button type="submit">Entrar</button>
+        </form>
+        
+        <div id="message" class="message" style="display: none;"></div>
+        
+        <div style="margin-top: 2rem; padding: 1rem; background: rgba(102, 126, 234, 0.1); border-radius: 10px; font-size: 0.9rem; color: #333;">
+            <strong>Dados para teste:</strong><br>
+            Usuário: <code>admin</code><br>
+            Senha: <code>1234</code>
+        </div>
+    </div>
+
+    <script>
+        // Verificar se já está logado
+        fetch('/api/check-auth')
+            .then(response => response.json())
+            .then(data => {
+                if (data.authenticated) {
+                    window.location.href = '/dashboard';
+                }
+            })
+            .catch(error => console.error('Erro ao verificar autenticação:', error));
+
+        // Manipular envio do formulário
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('message');
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    messageDiv.textContent = 'Login bem-sucedido! Redirecionando...';
+                    messageDiv.className = 'message success';
+                    messageDiv.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        window.location.href = '/dashboard';
+                    }, 1000);
+                } else {
+                    messageDiv.textContent = data.error;
+                    messageDiv.className = 'message error';
+                    messageDiv.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Erro no login:', error);
+                messageDiv.textContent = 'Erro de conexão. Tente novamente.';
+                messageDiv.className = 'message error';
+                messageDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
+

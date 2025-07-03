@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Loja Primo - E-commerce</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+        .ecommerce-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .product-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+        
+        .buy-btn {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .buy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            padding: 0.5rem 1rem;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="ecommerce-container">
+        <div class="dashboard-header">
+            <div>
+                <h1 class="welcome-text">🛍️ Loja Primo E-commerce</h1>
+                <p style="color: #666; margin-top: 0.5rem;">Catálogo de Produtos - Logado como: <span id="username">...</span></p>
+            </div>
+            <div class="nav-links">
+                <a href="/dashboard" class="nav-link">← Dashboard</a>
+                <button id="logoutBtn" class="logout-btn">Sair</button>
+            </div>
+        </div>
+        
+        <div id="productsGrid" class="products-grid">
+            <!-- Produtos serão carregados dinamicamente -->
+        </div>
+        
+        <div style="margin-top: 3rem; text-align: center; padding: 2rem; background: rgba(102, 126, 234, 0.1); border-radius: 15px;">
+            <h3 style="color: #333; margin-bottom: 1rem;">🔒 Área Protegida</h3>
+            <p style="color: #666;">
+                Esta página só pode ser acessada por usuários autenticados. 
+                Sua sessão está ativa e segura com cookies e sessions do Express.js.
+            </p>
+            <div style="margin-top: 1rem; font-size: 0.9rem; color: #38a169;">
+                <strong>✓ Autenticação via banco de dados JSON</strong><br>
+                <strong>✓ Senhas criptografadas com bcrypt</strong><br>
+                <strong>✓ Sessões gerenciadas com express-session</strong>
+            </div>
+        </div>
+        
+        <div style="margin-top: 2rem; text-align: center; color: #666; font-size: 0.9rem;">
+            <p>© 2024 Loja Primo - E-commerce Seguro</p>
+        </div>
+    </div>
+    
+    <script>
+        // Verificar autenticação e carregar dados
+        async function checkAuthAndLoadData() {
+            try {
+                const authResponse = await fetch('/api/check-auth');
+                const authData = await authResponse.json();
+                
+                if (!authData.authenticated) {
+                    window.location.href = '/login';
+                    return;
+                }
+                
+                // Carregar dados do e-commerce
+                const ecommerceResponse = await fetch('/api/protected/ecommerce');
+                const ecommerceData = await ecommerceResponse.json();
+                
+                if (ecommerceData.success) {
+                    document.getElementById('username').textContent = ecommerceData.data.username;
+                    loadProducts(ecommerceData.data.products);
+                }
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+                window.location.href = '/login';
+            }
+        }
+        
+        // Carregar produtos na tela
+        function loadProducts(products) {
+            const productsGrid = document.getElementById('productsGrid');
+            productsGrid.innerHTML = '';
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="product-image">${product.icon}</div>
+                    <div class="product-title">${product.name}</div>
+                    <div class="product-price">R$ ${product.price.toFixed(2).replace('.', ',')}</div>
+                    <div class="product-description">${product.description}</div>
+                    <button class="buy-btn" onclick="buyProduct('${product.name}')">Comprar Agora</button>
+                `;
+                productsGrid.appendChild(productCard);
+            });
+        }
+        
+        // Função para simular compra
+        function buyProduct(productName) {
+            alert(`Produto "${productName}" adicionado ao carrinho! 🛒`);
+        }
+        
+        // Função de logout
+        document.getElementById('logoutBtn').addEventListener('click', async function() {
+            try {
+                const response = await fetch('/api/auth/logout', {
+                    method: 'POST'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    window.location.href = '/login';
+                }
+            } catch (error) {
+                console.error('Erro no logout:', error);
+                window.location.href = '/login';
+            }
+        });
+        
+        // Carregar dados quando a página carregar
+        document.addEventListener('DOMContentLoaded', checkAuthAndLoadData);
+    </script>
+</body>
+</html>
+

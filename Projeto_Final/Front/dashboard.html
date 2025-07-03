@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Loja Primo - Dashboard</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <div>
+                <h1 class="welcome-text">Bem-vindo, <span id="username">...</span>!</h1>
+                <p style="color: #666; margin-top: 0.5rem;">Painel de Controle - Loja Primo</p>
+            </div>
+            <button id="logoutBtn" class="logout-btn">Sair</button>
+        </div>
+        
+        <div class="dashboard-content">
+            <div class="card">
+                <h3>🛍️ E-commerce</h3>
+                <p>Acesse a área de vendas e produtos da Loja Primo. Gerencie seu catálogo e visualize as últimas novidades.</p>
+                <a href="/ecommerce" class="ecommerce-link">Acessar E-commerce</a>
+            </div>
+            
+            <div class="card">
+                <h3>📊 Estatísticas</h3>
+                <p>Visualize relatórios de vendas, produtos mais vendidos e performance geral da loja.</p>
+                <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(102, 126, 234, 0.1); border-radius: 8px;">
+                    <strong>Status:</strong> <span id="systemStatus">Carregando...</span> ✅
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>⚙️ Configurações</h3>
+                <p>Gerencie as configurações da sua conta e preferências do sistema.</p>
+                <div style="margin-top: 1rem; color: #666; font-size: 0.9rem;">
+                    <strong>Usuário:</strong> <span id="userInfo">...</span><br>
+                    <strong>Último acesso:</strong> <span id="lastAccess">Agora</span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>🔒 Segurança</h3>
+                <p>Esta é uma área protegida que só pode ser acessada após login com credenciais válidas.</p>
+                <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(56, 161, 105, 0.1); border-radius: 8px; color: #38a169;">
+                    <strong>✓ Sessão ativa e segura</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 2rem; text-align: center; color: #666; font-size: 0.9rem;">
+            <p>© 2024 Loja Primo - Sistema de Gerenciamento</p>
+        </div>
+    </div>
+
+    <script>
+        // Verificar autenticação e carregar dados
+        async function checkAuthAndLoadData() {
+            try {
+                const authResponse = await fetch('/api/check-auth');
+                const authData = await authResponse.json();
+                
+                if (!authData.authenticated) {
+                    window.location.href = '/login';
+                    return;
+                }
+                
+                // Carregar dados do dashboard
+                const dashboardResponse = await fetch('/api/protected/dashboard');
+                const dashboardData = await dashboardResponse.json();
+                
+                if (dashboardData.success) {
+                    document.getElementById('username').textContent = dashboardData.data.username;
+                    document.getElementById('userInfo').textContent = dashboardData.data.username;
+                    document.getElementById('systemStatus').textContent = dashboardData.data.stats.systemStatus;
+                    
+                    const lastAccess = new Date(dashboardData.data.lastAccess).toLocaleString('pt-BR');
+                    document.getElementById('lastAccess').textContent = lastAccess;
+                }
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+                window.location.href = '/login';
+            }
+        }
+        
+        // Função de logout
+        document.getElementById('logoutBtn').addEventListener('click', async function() {
+            try {
+                const response = await fetch('/api/auth/logout', {
+                    method: 'POST'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    window.location.href = '/login';
+                }
+            } catch (error) {
+                console.error('Erro no logout:', error);
+                window.location.href = '/login';
+            }
+        });
+        
+        // Carregar dados quando a página carregar
+        document.addEventListener('DOMContentLoaded', checkAuthAndLoadData);
+    </script>
+</body>
+</html>
+
