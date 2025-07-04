@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "$2b$10$dNoeLt4QP.D52fDUDzF8Xe9sPpwXxS1nCnJz1UhRslldDNo3fm0ga",
+      "created_at": "2025-07-03T19:01:10.133Z"
+    }
+  ],
+  "nextId": 2
+}
